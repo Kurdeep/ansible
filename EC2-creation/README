@@ -1,0 +1,28 @@
+Q-create ec2 using ansible via collections
+-Install the community.aws collection:
+ansible-galaxy collection install community.aws
+-Install boto3 and botocore modules:
+pip install boto3 botocore
+(it shows error:externally-managed-environment //so, 
+Create a Virtual Environment
+-sudo apt install python3-venv //Create a Virtual Environment
+-python3 -m venv venv //Create a virtual environment
+-source venv/bin/activate //Activate the virtual environment
+-install boto3 and botocore
+)
+-set envir. variables:
+export AWS_ACCESS_KEY_ID='your_access_key_id'
+export AWS_SECRET_ACCESS_KEY='your_secret_access_key'
+-also, u can set aws creds file:(optional)
+[default]
+aws_access_key_id = your_access_key_id
+aws_secret_access_key = your_secret_access_key
+-run playbook
+(ERROR! couldn't resolve module/action 'community.aws.ec2'. This often indicates a misspelling, missing collection, or incorrect module path.
+STEPS:
+-keep ansible.config file in dir where playbk is kept:
+[defaults]
+collections_paths = ~/.ansible/collections/ansible_collections
+-in playbook , keep collections name as  community.aws.ec2_instance - make sure module "ec2_instance" is present
+ERROR:{"changed": false, "msg": "argument 'image' is of type <class 'str'> and we were unable to convert to dict //argument name is wrong, keep it as expected
+)
