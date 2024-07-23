@@ -1,0 +1,31 @@
+---
+- name: Create an EC2 instance
+  hosts: localhost
+  gather_facts: no
+  collections:
+    - community.aws
+  vars:
+    aws_region: us-east-1
+    instance_type: t2.micro
+    ami_id: ami-07d9456e59793a7d5  # Replace with your desired AMI ID
+    key_name: ppk-feb  # Replace with your key pair name
+    security_group: sg-0721b3d4b7c5eb6bd  # Replace with your security group ID
+  tasks:
+    - name: Launch EC2 instance
+      community.aws.ec2_instance:
+        key_name: "{{ key_name }}"
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ ami_id }}"  # Correct parameter for AMI ID
+        region: "{{ aws_region }}"
+        wait: yes
+        security_groups:  # Correct parameter for security groups (note plural)
+          - "{{ security_group }}"
+        count: 1
+      register: ec2
+
+    - name: Output instance information
+      debug:
+        msg:
+          - "Instance ID: {{ ec2.instance_ids[0] }}"
+          - "Instance Public DNS: {{ ec2.instances[0].public_dns_name }}"
+          - "Instance Public IP: {{ ec2.instances[0].public_ip }}"
