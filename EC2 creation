@@ -10,15 +10,16 @@
     ami_id: ami-07d9456e59793a7d5  # Replace with your desired AMI ID
     key_name: ppk-feb  # Replace with your key pair name
     security_group: sg-0721b3d4b7c5eb6bd  # Replace with your security group ID
+    ansible_python_interpreter: "~/sample/venv/bin/python"  # Path to your virtual environment's Python interpreter
   tasks:
     - name: Launch EC2 instance
       community.aws.ec2_instance:
         key_name: "{{ key_name }}"
         instance_type: "{{ instance_type }}"
-        image_id: "{{ ami_id }}"  # Correct parameter for AMI ID
+        image_id: "{{ ami_id }}"
         region: "{{ aws_region }}"
         wait: yes
-        security_groups:  # Correct parameter for security groups (note plural)
+        security_groups:
           - "{{ security_group }}"
         count: 1
       register: ec2
@@ -29,3 +30,6 @@
           - "Instance ID: {{ ec2.instance_ids[0] }}"
           - "Instance Public DNS: {{ ec2.instances[0].public_dns_name }}"
           - "Instance Public IP: {{ ec2.instances[0].public_ip }}"
+
+
+
