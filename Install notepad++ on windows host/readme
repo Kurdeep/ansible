@@ -1,0 +1,17 @@
+ - establish connection
+   - winrm quickconfig
+     winrm set winrm/config/service/auth '@{Basic="true"}'
+     winrm set winrm/config/service '@{AllowUnencrypted="true"}' //in windows host
+   - inventory file
+[windows]
+winserver ansible_host=<Windows_EC2_IP-private> ansible_user=<Administrator> ansible_password=<Your_Password> ansible_connection=winrm ansible_winrm_server_cert_validation=ignore ansible_winrm_transport=ntpl ansible_winrm_port=5985
+   - python3 -m venv myenv //pywinrm will run only in virtual envir.
+     source myenv/bin/activate
+     sudo apt-get update
+     sudo apt-get install -y gcc python3-dev libkrb5-dev
+     "pip install "pywinrm[credssp,kerberos,ntlm]" //install pywinrm
+   - check connection
+     Get-Service -Name WinRM //winrm should run
+     winrm enumerate winrm/config/listener //see http(or)https and port-that port should be open in SG and edit in inventory
+     telnet <windows-ip-which-winrm-listens> <port>
+   - have playbook, run code
