@@ -1,0 +1,9 @@
+---
+- hosts: managed_nodes
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Uninstall Git
+      apt:
+        name: git
+        state: absent
