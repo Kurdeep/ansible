@@ -1,0 +1,22 @@
+ - install git in managed node
+ - user creation in managed node
+   - sudo adduser yourusername
+
+
+ -Password connection 
+  - sudo nano /etc/ssh/sshd_config //in managed node
+    - PasswordAuthentication yes
+  - if "/etc/ssh/sshd_config.d/" present enable pwd authentication there also
+  - sudo systemctl restart ssh
+  - sudo apt update
+    sudo apt install sshpass
+ -validate connection
+  - ssh yourusername@managed_node_ip //from master
+
+
+
+SHOOT:
+fatal: [3.95.239.3]: FAILED! => {"msg": "Missing sudo password"}
+- managed node
+  sudo visudo
+  ansible1 ALL=(ALL) NOPASSWD: ALL
