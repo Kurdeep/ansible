@@ -1,0 +1,5 @@
+-ansible-project
+  -inventory.ini
+  -playbook.yml
+  -group_vars
+    -all.yml
