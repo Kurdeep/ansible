@@ -10,6 +10,7 @@ winserver ansible_host=<Windows_EC2_IP-private> ansible_user=<Administrator> ans
      sudo apt-get update
      sudo apt-get install -y gcc python3-dev libkrb5-dev
      "pip install "pywinrm[credssp,kerberos,ntlm]" //install pywinrm
+NOTE: If u don't want to go for virtual envir. alternative is--> "python3 -m pip install pywinrm"
    - check connection
      Get-Service -Name WinRM //winrm should run
      winrm enumerate winrm/config/listener //see http(or)https and port-that port should be open in SG and edit in inventory
